@@ -1,5 +1,7 @@
 package ru.yandex.practicum;
 
+import java.util.List;
+
 /*
 в главном классе нам нужно:
     создать лог-файл (он должен передаваться во все классы)
@@ -12,7 +14,6 @@ package ru.yandex.practicum;
 public class Wordle {
 
     public static void main(String[] args) {
-
     }
 
 }
