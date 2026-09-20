@@ -1,4 +1,6 @@
-package ru.yandex.practicum;
+package ru.yandex.practicum.service;
+
+import ru.yandex.practicum.repository.WordleDictionary;
 
 import java.io.BufferedReader;
 import java.io.FileReader;
@@ -21,7 +23,7 @@ public class WordleDictionaryLoader {
                 }
             }
         } catch (IOException e) {
-            //ignore
+            throw new RuntimeException("Не удалось прочитать файл");
         }
         return new WordleDictionary(words);
     }
