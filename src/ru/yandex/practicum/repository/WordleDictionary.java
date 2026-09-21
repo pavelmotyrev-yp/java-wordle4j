@@ -1,17 +1,14 @@
 package ru.yandex.practicum.repository;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.Map;
+import java.util.Set;
 
-public class WordleDictionary {
+public interface WordleDictionary {
+    int getDictionarySize();
 
-    private List<String> words;
+    String getWord(int wordPosition);
 
-    public WordleDictionary(List<String> words) {
-        this.words = words;
-    }
+    String getWord(Set<String> invalidLetters, Set<String> validLetters, Map<Integer, String> validLettersPosition);
 
-    public List<String> getWords() {
-        return new ArrayList<>(words);
-    }
+    boolean isExist(String userAnswer);
 }

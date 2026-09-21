@@ -5,9 +5,9 @@ import ru.yandex.practicum.entity.UserAnswerResult;
 public interface WordleGame {
     void initialize();
 
-    boolean getHint();
+    String getHint();
 
     UserAnswerResult checkUserAnswer(String userAnswer);
 
-    Object getSecreteWord();
+    String getSecretWord();
 }

@@ -1,7 +1,7 @@
 package ru.yandex.practicum;
 
 import ru.yandex.practicum.controller.WordleController;
-import ru.yandex.practicum.repository.WordleDictionary;
+import ru.yandex.practicum.repository.WordleDictionaryImpl;
 import ru.yandex.practicum.service.WordleDictionaryLoader;
 import ru.yandex.practicum.service.WordleGame;
 import ru.yandex.practicum.service.WordleGameImpl;
@@ -19,7 +19,7 @@ public class Wordle {
     public static void main(String[] args) {
         try {
             WordleDictionaryLoader wordleDictionaryLoader = new WordleDictionaryLoader();
-            WordleDictionary wordleDictionary = wordleDictionaryLoader.loadWordsFromFile(WORDS_PATH);
+            WordleDictionaryImpl wordleDictionary = wordleDictionaryLoader.loadWordsFromFile(WORDS_PATH);
             WordleGame wordleGame = new WordleGameImpl(wordleDictionary);
             WordleController wordleController = new WordleController(INPUT_SOURCE, wordleGame);
             wordleController.startGame();

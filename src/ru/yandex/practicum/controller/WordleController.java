@@ -1,6 +1,7 @@
 package ru.yandex.practicum.controller;
 
 import ru.yandex.practicum.entity.UserAnswerResult;
+import ru.yandex.practicum.exception.IncorrectUserAnswerException;
 import ru.yandex.practicum.service.WordleGame;
 
 import java.io.InputStream;
@@ -33,14 +34,19 @@ public class WordleController {
         if (isGameWin) {
             System.out.printf(CONGRATULATION_MESSAGE);
         } else {
-            System.out.printf(GAME_OVER_MESSAGE, wordleGame.getSecreteWord());
+            System.out.printf(GAME_OVER_MESSAGE, wordleGame.getSecretWord());
         }
     }
 
     private void processGame() {
         for (int i = 0; i < ATTEMPTS_LIMIT; i++) {
             if (!isGameWin) {
-                runGameLoop();
+                try{
+                    runGameLoop();
+                }catch (IncorrectUserAnswerException e){
+                    i--;
+                    System.out.println(e.getMessage());
+                }
             } else {
                 break;
             }
@@ -50,6 +56,10 @@ public class WordleController {
     private void runGameLoop() {
         String userAnswer = scanner.nextLine();
         String normalizeAnswer = userAnswer.toLowerCase().trim();
+        if (normalizeAnswer.length() != 5 && !normalizeAnswer.isEmpty()){
+            throw new IncorrectUserAnswerException(normalizeAnswer + " неверный ввод. Длина слова должна быть 5 " +
+                    "символов или ввод должен быть пустым для вывода подсказки программы");
+        }
         if (normalizeAnswer.isEmpty()) {
             System.out.println(wordleGame.getHint());
         } else {
