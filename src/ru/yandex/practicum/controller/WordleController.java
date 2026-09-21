@@ -41,9 +41,9 @@ public class WordleController {
     private void processGame() {
         for (int i = 0; i < ATTEMPTS_LIMIT; i++) {
             if (!isGameWin) {
-                try{
+                try {
                     runGameLoop();
-                }catch (IncorrectUserAnswerException e){
+                } catch (IncorrectUserAnswerException e) {
                     i--;
                     System.out.println(e.getMessage());
                 }
@@ -56,7 +56,7 @@ public class WordleController {
     private void runGameLoop() {
         String userAnswer = scanner.nextLine();
         String normalizeAnswer = userAnswer.toLowerCase().trim();
-        if (normalizeAnswer.length() != 5 && !normalizeAnswer.isEmpty()){
+        if (normalizeAnswer.length() != 5 && !normalizeAnswer.isEmpty()) {
             throw new IncorrectUserAnswerException(normalizeAnswer + " неверный ввод. Длина слова должна быть 5 " +
                     "символов или ввод должен быть пустым для вывода подсказки программы");
         }
