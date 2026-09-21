@@ -61,14 +61,14 @@ public class WordleController {
                     "символов или ввод должен быть пустым для вывода подсказки программы");
         }
         if (normalizeAnswer.isEmpty()) {
-            System.out.println(wordleGame.getHint());
+            normalizeAnswer = wordleGame.getHint();
+            System.out.println(normalizeAnswer);
+        }
+        UserAnswerResult result = wordleGame.checkUserAnswer(normalizeAnswer);
+        if (result.isAnswerCorrect()) {
+            isGameWin = true;
         } else {
-            UserAnswerResult result = wordleGame.checkUserAnswer(normalizeAnswer);
-            if (result.isAnswerCorrect()) {
-                isGameWin = true;
-            } else {
-                System.out.println(result.feedbackString());
-            }
+            System.out.println(result.feedbackString());
         }
     }
 }
