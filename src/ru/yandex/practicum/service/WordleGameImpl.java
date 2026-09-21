@@ -44,12 +44,22 @@ public class WordleGameImpl implements WordleGame {
     public void initialize() {
         Random rn = new Random();
         int wordPosition = rn.nextInt(wordleDictionary.getDictionarySize());
-        secretWord = wordleDictionary.getWord(wordPosition);
+        Optional<String> optionalSecreteWord = wordleDictionary.getWord(wordPosition);
+        if (optionalSecreteWord.isPresent()) {
+            secretWord = optionalSecreteWord.get();
+        } else {
+            throw new RuntimeException("Некорректная инициализация игры");
+        }
     }
 
     @Override
     public String getHint() {
-        return wordleDictionary.getWord(invalidLetters, validLetters, validLettersPosition);
+        Optional<String> optionalHint = wordleDictionary.getWord(invalidLetters, validLetters, validLettersPosition);
+        if (optionalHint.isPresent()) {
+            return optionalHint.get();
+        } else {
+            throw new RuntimeException("Ошибка поиска подсказки");
+        }
     }
 
     @Override
