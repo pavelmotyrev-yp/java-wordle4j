@@ -13,12 +13,14 @@ public class WordleGameImpl implements WordleGame {
     private Set<String> invalidLetters;
     private Set<String> validLetters;
     private Map<Integer, String> validLettersPosition;
+    private Set<String> invalidWords;
     private String secretWord;
 
     public WordleGameImpl(WordleDictionary wordleDictionary) {
         this.wordleDictionary = wordleDictionary;
         this.invalidLetters = new HashSet<>();
         this.validLetters = new HashSet<>();
+        this.invalidWords = new HashSet<>();
         this.validLettersPosition = new HashMap<>();
     }
 
@@ -36,7 +38,8 @@ public class WordleGameImpl implements WordleGame {
 
     @Override
     public String getHint() {
-        Optional<String> optionalHint = wordleDictionary.getWord(invalidLetters, validLetters, validLettersPosition);
+        Optional<String> optionalHint = wordleDictionary.getWord(invalidLetters, validLetters,
+                validLettersPosition, invalidWords);
         if (optionalHint.isPresent()) {
             return optionalHint.get();
         } else {
@@ -55,6 +58,8 @@ public class WordleGameImpl implements WordleGame {
         }
 
         String hint = checkWord(userAnswer);
+
+        invalidWords.add(hint);
 
         return new UserAnswerResult(INCORRECT, hint);
     }

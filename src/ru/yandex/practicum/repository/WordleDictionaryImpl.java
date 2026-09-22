@@ -24,8 +24,12 @@ public class WordleDictionaryImpl implements WordleDictionary {
     }
 
     @Override
-    public Optional<String> getWord(Set<String> invalidLetters, Set<String> validLetters, Map<Integer, String> validLettersPosition) {
+    public Optional<String> getWord(Set<String> invalidLetters, Set<String> validLetters,
+                                    Map<Integer, String> validLettersPosition, Set<String> invalidWords) {
         for (String word : words) {
+
+            if (invalidWords.contains(word)) continue;
+
             if (hasInvalid(invalidLetters, word)) continue;
 
             if (!containsAllValidLetters(validLetters, word)) continue;

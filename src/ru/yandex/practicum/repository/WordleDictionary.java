@@ -9,7 +9,8 @@ public interface WordleDictionary {
 
     Optional<String> getWord(int wordPosition);
 
-    Optional<String> getWord(Set<String> invalidLetters, Set<String> validLetters, Map<Integer, String> validLettersPosition);
+    Optional<String> getWord(Set<String> invalidLetters, Set<String> validLetters,
+                             Map<Integer, String> validLettersPosition, Set<String> invalidWords);
 
     boolean isExist(String userAnswer);
 }
