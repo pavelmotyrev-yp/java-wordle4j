@@ -1,5 +1,6 @@
-package ru.yandex.practicum.service;
+package ru.yandex.practicum.fileprocessor;
 
+import ru.yandex.practicum.logger.Logger;
 import ru.yandex.practicum.repository.WordleDictionaryImpl;
 
 import java.io.BufferedReader;
@@ -7,10 +8,17 @@ import java.io.FileReader;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
 public class WordleDictionaryLoader {
+    private final Logger logger;
+
+    public WordleDictionaryLoader(Logger logger) {
+        this.logger = logger;
+    }
+
     private static final int MAX_WORD_LENGTH = 5;
 
     public WordleDictionaryImpl loadWordsFromFile(String filePath) {
@@ -23,6 +31,7 @@ public class WordleDictionaryLoader {
                 }
             }
         } catch (IOException e) {
+            logger.log("Не удалось прочитать файл" + Arrays.toString(e.getStackTrace()));
             throw new RuntimeException("Не удалось прочитать файл");
         }
         return new WordleDictionaryImpl(words);

@@ -2,6 +2,7 @@ package ru.yandex.practicum.service;
 
 import ru.yandex.practicum.entity.UserAnswerResult;
 import ru.yandex.practicum.exception.IncorrectUserAnswerException;
+import ru.yandex.practicum.logger.Logger;
 import ru.yandex.practicum.repository.WordleDictionary;
 
 import java.util.*;
@@ -10,14 +11,16 @@ public class WordleGameImpl implements WordleGame {
     private static final boolean CORRECT = true;
     private static final boolean INCORRECT = false;
     private final WordleDictionary wordleDictionary;
+    private final Logger logger;
     private Set<String> invalidLetters;
     private Set<String> validLetters;
     private Map<Integer, String> validLettersPosition;
     private Set<String> invalidWords;
     private String secretWord;
 
-    public WordleGameImpl(WordleDictionary wordleDictionary) {
+    public WordleGameImpl(WordleDictionary wordleDictionary, Logger logger) {
         this.wordleDictionary = wordleDictionary;
+        this.logger = logger;
         this.invalidLetters = new HashSet<>();
         this.validLetters = new HashSet<>();
         this.invalidWords = new HashSet<>();
@@ -32,6 +35,7 @@ public class WordleGameImpl implements WordleGame {
         if (optionalSecreteWord.isPresent()) {
             secretWord = optionalSecreteWord.get();
         } else {
+            logger.log("Некорректная инициализация игры");
             throw new RuntimeException("Некорректная инициализация игры");
         }
     }
@@ -43,6 +47,7 @@ public class WordleGameImpl implements WordleGame {
         if (optionalHint.isPresent()) {
             return optionalHint.get();
         } else {
+            logger.log("Ошибка поиска подсказки");
             throw new RuntimeException("Ошибка поиска подсказки");
         }
     }
@@ -50,6 +55,7 @@ public class WordleGameImpl implements WordleGame {
     @Override
     public UserAnswerResult checkUserAnswer(String userAnswer) {
         if (!wordleDictionary.isExist(userAnswer)) {
+            logger.log("Слова " + userAnswer + " нет в словаре.");
             throw new IncorrectUserAnswerException("Слова " + userAnswer + " нет в словаре.");
         }
 

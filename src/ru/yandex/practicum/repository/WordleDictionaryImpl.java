@@ -7,7 +7,7 @@ import java.util.Set;
 
 public class WordleDictionaryImpl implements WordleDictionary {
 
-    private List<String> words;
+    private final List<String> words;
 
     public WordleDictionaryImpl(List<String> words) {
         this.words = words;

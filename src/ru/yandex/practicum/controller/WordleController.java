@@ -2,9 +2,11 @@ package ru.yandex.practicum.controller;
 
 import ru.yandex.practicum.entity.UserAnswerResult;
 import ru.yandex.practicum.exception.IncorrectUserAnswerException;
+import ru.yandex.practicum.logger.Logger;
 import ru.yandex.practicum.service.WordleGame;
 
 import java.io.InputStream;
+import java.util.Arrays;
 import java.util.Scanner;
 
 public class WordleController {
@@ -19,11 +21,13 @@ public class WordleController {
 
     private final Scanner scanner;
     private final WordleGame wordleGame;
+    private final Logger logger;
     private boolean isGameWin;
 
-    public WordleController(InputStream inputSource, WordleGame wordleGame) {
+    public WordleController(InputStream inputSource, WordleGame wordleGame, Logger logger) {
         this.scanner = new Scanner(inputSource);
         this.wordleGame = wordleGame;
+        this.logger = logger;
     }
 
     public void startGame() {
@@ -45,6 +49,7 @@ public class WordleController {
                     runGameLoop();
                 } catch (IncorrectUserAnswerException e) {
                     i--;
+                    logger.log(e.getMessage() + " неверный ввод. пользователя" + Arrays.toString(e.getStackTrace()));
                     System.out.println(e.getMessage());
                 }
             } else {
