@@ -20,7 +20,7 @@ public class WordleDictionaryImpl implements WordleDictionary {
 
     @Override
     public Optional<String> getWord(int wordPosition) {
-        return Optional.ofNullable(words.get(wordPosition));
+        return Optional.of(words.get(wordPosition));
     }
 
     @Override
