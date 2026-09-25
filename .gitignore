@@ -22,7 +22,7 @@ target/
 .springBeans
 .sts4-cache
 
-.gigacode
+.gigacode/
 
 app.log
 
