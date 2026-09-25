@@ -22,6 +22,10 @@ target/
 .springBeans
 .sts4-cache
 
+.gigacode
+
+app.log
+
 ### NetBeans ###
 /nbproject/private/
 /nbbuild/
