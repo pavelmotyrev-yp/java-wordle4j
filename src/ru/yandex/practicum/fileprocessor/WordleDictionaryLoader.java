@@ -1,0 +1,44 @@
+package ru.yandex.practicum.fileprocessor;
+
+import ru.yandex.practicum.exception.WordleDictionaryLoadException;
+import ru.yandex.practicum.logger.Logger;
+import ru.yandex.practicum.repository.WordleDictionaryImpl;
+
+import java.io.BufferedReader;
+import java.io.FileReader;
+import java.io.IOException;
+import java.nio.charset.StandardCharsets;
+import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
+
+
+public class WordleDictionaryLoader {
+    private final Logger logger;
+
+    public WordleDictionaryLoader(Logger logger) {
+        this.logger = logger;
+    }
+
+    private static final int MAX_WORD_LENGTH = 5;
+
+    public WordleDictionaryImpl loadWordsFromFile(String filePath) {
+        List<String> words = new ArrayList<>();
+        try (BufferedReader reader = new BufferedReader(new FileReader(filePath, StandardCharsets.UTF_8))) {
+            while (reader.ready()) {
+                String newWord = reader.readLine().trim();
+                if (newWord.length() == MAX_WORD_LENGTH) {
+                    words.add(normalizeWord(newWord));
+                }
+            }
+        } catch (IOException e) {
+            logger.log("Не удалось прочитать файл" + Arrays.toString(e.getStackTrace()));
+            throw new WordleDictionaryLoadException("Не удалось прочитать файл");
+        }
+        return new WordleDictionaryImpl(words);
+    }
+
+    private String normalizeWord(String word) {
+        return word.toLowerCase().replaceAll("ё", "е");
+    }
+}
