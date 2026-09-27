@@ -1,6 +1,8 @@
 package ru.yandex.practicum.service;
 
 import ru.yandex.practicum.entity.UserAnswerResult;
+import ru.yandex.practicum.exception.GameHintException;
+import ru.yandex.practicum.exception.GameInitializationException;
 import ru.yandex.practicum.exception.IncorrectUserAnswerException;
 import ru.yandex.practicum.logger.Logger;
 import ru.yandex.practicum.repository.WordleDictionary;
@@ -36,7 +38,7 @@ public class WordleGameImpl implements WordleGame {
             secretWord = optionalSecreteWord.get();
         } else {
             logger.log("Некорректная инициализация игры");
-            throw new RuntimeException("Некорректная инициализация игры");
+            throw new GameInitializationException("Некорректная инициализация игры");
         }
     }
 
@@ -48,7 +50,7 @@ public class WordleGameImpl implements WordleGame {
             return optionalHint.get();
         } else {
             logger.log("Ошибка поиска подсказки");
-            throw new RuntimeException("Ошибка поиска подсказки");
+            throw new GameHintException("Ошибка поиска подсказки");
         }
     }
 

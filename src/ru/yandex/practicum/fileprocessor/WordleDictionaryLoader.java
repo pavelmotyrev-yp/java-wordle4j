@@ -1,5 +1,6 @@
 package ru.yandex.practicum.fileprocessor;
 
+import ru.yandex.practicum.exception.WordleDictionaryLoadException;
 import ru.yandex.practicum.logger.Logger;
 import ru.yandex.practicum.repository.WordleDictionaryImpl;
 
@@ -32,7 +33,7 @@ public class WordleDictionaryLoader {
             }
         } catch (IOException e) {
             logger.log("Не удалось прочитать файл" + Arrays.toString(e.getStackTrace()));
-            throw new RuntimeException("Не удалось прочитать файл");
+            throw new WordleDictionaryLoadException("Не удалось прочитать файл");
         }
         return new WordleDictionaryImpl(words);
     }

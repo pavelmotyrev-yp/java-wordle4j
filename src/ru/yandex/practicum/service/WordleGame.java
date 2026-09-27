@@ -13,7 +13,8 @@ public interface WordleGame {
     /**
      * Инициализирует новую игру: выбирает случайное слово из словаря.
      *
-     * @throws RuntimeException, если не удалось выбрать слово
+     * @throws ru.yandex.practicum.exception.GameInitializationException,
+     *         если не удалось выбрать слово
      */
     void initialize();
 
@@ -23,7 +24,8 @@ public interface WordleGame {
      * Используется при пустом вводе пользователя.
      *
      * @return подсказка в виде строки
-     * @throws RuntimeException, если подходящее слово не найдено
+     * @throws ru.yandex.practicum.exception.GameHintException,
+     *         если подходящее слово не найдено
      */
     String getHint();
 
